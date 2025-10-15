@@ -103,6 +103,7 @@ export const mockVideos = [
     shares: '18.5K',
     isLiked: false,
     isFollowing: false,
+    isBookmarked: false,
     hashtags: ['#dance', '#tutorial', '#fyp'],
     createdAt: '2024-07-15T10:30:00Z'
   },
@@ -163,6 +164,7 @@ export const mockVideos = [
     shares: '145.8K',
     isLiked: false,
     isFollowing: false,
+    isBookmarked: false,
     hashtags: ['#magic', '#tutorial', '#reveal'],
     createdAt: '2024-07-12T12:15:00Z'
   },
