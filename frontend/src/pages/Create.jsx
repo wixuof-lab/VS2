@@ -223,56 +223,219 @@ const Create = ({ onClose }) => {
       <div className="fixed inset-0 bg-black z-50 flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
-          <button onClick={() => setStep('edit')}>
-            <ArrowLeft size={24} className="text-white" />
+          <button onClick={() => setStep('edit')} className="text-white">
+            <ArrowLeft size={24} />
           </button>
           <h1 className="text-white font-semibold text-lg">Publicar</h1>
-          <button className="text-[#FE2C55] font-semibold">
+          <button 
+            className="bg-[#FE2C55] hover:bg-[#fe2c55ea] text-white px-6 py-1.5 rounded-md font-semibold text-sm"
+            onClick={() => {
+              // Aquí iría la lógica de publicación
+              alert('Video publicado! (Demo)');
+              onClose();
+            }}
+          >
             Publicar
           </button>
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto px-4 py-4">
-          {/* Description */}
-          <div className="mb-6">
-            <textarea
-              placeholder="Describe tu video..."
-              className="w-full bg-[#1a1a1a] rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FE2C55] resize-none"
-              rows={4}
-            />
+        <div className="flex-1 overflow-y-auto">
+          {/* Video Preview & Description */}
+          <div className="px-4 py-4 border-b border-gray-800">
+            <div className="flex gap-3">
+              {/* Video Thumbnail */}
+              <div className="relative w-24 h-32 bg-gray-800 rounded-lg overflow-hidden flex-shrink-0">
+                {selectedVideo && (
+                  <video
+                    src={selectedVideo}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+
+              {/* Description Input */}
+              <div className="flex-1">
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Describe tu video..."
+                  className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none resize-none text-sm"
+                  rows={5}
+                  maxLength={150}
+                />
+                <div className="text-gray-500 text-xs mt-1">
+                  {description.length}/150
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Action Buttons */}
+            <div className="flex flex-wrap gap-2 mt-3">
+              <button className="px-3 py-1.5 bg-[#1a1a1a] rounded-md text-white text-xs font-medium flex items-center gap-1.5">
+                <AtSign size={14} />
+                Etiquetar personas
+              </button>
+              <button className="px-3 py-1.5 bg-[#1a1a1a] rounded-md text-white text-xs font-medium flex items-center gap-1.5">
+                <Hash size={14} />
+                Hashtags
+              </button>
+            </div>
           </div>
 
-          {/* Who can view */}
-          <div className="mb-6">
-            <h3 className="text-white font-semibold mb-3">¿Quién puede ver este video?</h3>
-            <div className="space-y-2">
-              {['Público', 'Amigos', 'Solo yo'].map((option) => (
+          {/* Cover Selection */}
+          <div className="px-4 py-4 border-b border-gray-800">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-white font-medium text-sm">Portada del video</h3>
+              <button className="text-[#FE2C55] text-sm font-medium">Editar</button>
+            </div>
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+              {[0, 1, 2, 3, 4].map((index) => (
                 <button
-                  key={option}
-                  className="w-full flex items-center justify-between p-3 bg-[#1a1a1a] rounded-lg"
+                  key={index}
+                  onClick={() => setSelectedCover(index)}
+                  className={`relative w-16 h-24 bg-gray-800 rounded-md overflow-hidden flex-shrink-0 ${
+                    selectedCover === index ? 'ring-2 ring-[#FE2C55]' : ''
+                  }`}
                 >
-                  <span className="text-white">{option}</span>
-                  <div className="w-5 h-5 rounded-full border-2 border-gray-500" />
+                  {selectedVideo && (
+                    <video
+                      src={selectedVideo}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                  {selectedCover === index && (
+                    <div className="absolute inset-0 bg-[#FE2C55]/20 flex items-center justify-center">
+                      <div className="w-5 h-5 bg-[#FE2C55] rounded-full flex items-center justify-center">
+                        <Check size={14} className="text-white" />
+                      </div>
+                    </div>
+                  )}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Allow options */}
-          <div className="mb-6">
-            <h3 className="text-white font-semibold mb-3">Permitir usuarios a:</h3>
-            <div className="space-y-3">
-              {['Comentar', 'Dueto', 'Stitch'].map((option) => (
-                <div key={option} className="flex items-center justify-between">
-                  <span className="text-white">{option}</span>
-                  <div className="w-12 h-6 bg-[#FE2C55] rounded-full p-1">
-                    <div className="w-4 h-4 bg-white rounded-full ml-auto" />
-                  </div>
+          {/* Location */}
+          <div className="px-4 py-4 border-b border-gray-800">
+            <button 
+              onClick={() => setShowLocationInput(!showLocationInput)}
+              className="w-full flex items-center justify-between"
+            >
+              <div className="flex items-center gap-3">
+                <MapPin size={20} className="text-gray-400" />
+                <div className="text-left">
+                  <p className="text-white text-sm font-medium">
+                    {location || 'Agregar ubicación'}
+                  </p>
+                  {location && (
+                    <p className="text-gray-400 text-xs">Toca para cambiar</p>
+                  )}
                 </div>
-              ))}
+              </div>
+              <ChevronRight size={20} className="text-gray-400" />
+            </button>
+            {showLocationInput && (
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="Buscar ubicación..."
+                className="w-full mt-3 bg-[#1a1a1a] rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FE2C55] text-sm"
+              />
+            )}
+          </div>
+
+          {/* Privacy Settings */}
+          <div className="px-4 py-4 border-b border-gray-800">
+            <h3 className="text-white font-medium text-sm mb-3">¿Quién puede ver este video?</h3>
+            <div className="space-y-2">
+              {[
+                { value: 'public', label: 'Público', icon: Globe, desc: 'Todos pueden ver tu video' },
+                { value: 'friends', label: 'Amigos', icon: Users, desc: 'Solo tus amigos' },
+                { value: 'private', label: 'Solo yo', icon: Lock, desc: 'Solo tú puedes verlo' }
+              ].map((option) => {
+                const Icon = option.icon;
+                return (
+                  <button
+                    key={option.value}
+                    onClick={() => setPrivacy(option.value)}
+                    className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+                      privacy === option.value 
+                        ? 'bg-[#FE2C55]/10 border border-[#FE2C55]' 
+                        : 'bg-[#1a1a1a] border border-transparent'
+                    }`}
+                  >
+                    <Icon size={20} className={privacy === option.value ? 'text-[#FE2C55]' : 'text-gray-400'} />
+                    <div className="flex-1 text-left">
+                      <p className="text-white text-sm font-medium">{option.label}</p>
+                      <p className="text-gray-400 text-xs">{option.desc}</p>
+                    </div>
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      privacy === option.value 
+                        ? 'border-[#FE2C55] bg-[#FE2C55]' 
+                        : 'border-gray-500'
+                    }`}>
+                      {privacy === option.value && (
+                        <Check size={14} className="text-white" />
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
+
+          {/* Interaction Settings */}
+          <div className="px-4 py-4 border-b border-gray-800">
+            <h3 className="text-white font-medium text-sm mb-3">Permitir a los usuarios</h3>
+            <div className="space-y-3">
+              {[
+                { value: allowComments, setter: setAllowComments, icon: MessageSquare, label: 'Comentar' },
+                { value: allowDuet, setter: setAllowDuet, icon: Copy, label: 'Hacer Dueto' },
+                { value: allowStitch, setter: setAllowStitch, icon: GitMerge, label: 'Hacer Stitch' }
+              ].map((option, index) => {
+                const Icon = option.icon;
+                return (
+                  <div key={index} className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Icon size={18} className="text-gray-400" />
+                      <span className="text-white text-sm">{option.label}</span>
+                    </div>
+                    <button
+                      onClick={() => option.setter(!option.value)}
+                      className={`relative w-12 h-6 rounded-full transition-colors ${
+                        option.value ? 'bg-[#FE2C55]' : 'bg-gray-600'
+                      }`}
+                    >
+                      <div
+                        className={`absolute top-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
+                          option.value ? 'translate-x-[26px]' : 'translate-x-0.5'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Additional Options */}
+          <div className="px-4 py-4">
+            <div className="space-y-3">
+              <button className="w-full flex items-center justify-between p-3 bg-[#1a1a1a] rounded-lg">
+                <span className="text-white text-sm">Guardar en borradores</span>
+                <ChevronRight size={20} className="text-gray-400" />
+              </button>
+              <button className="w-full flex items-center justify-between p-3 bg-[#1a1a1a] rounded-lg">
+                <span className="text-white text-sm">Configuración avanzada</span>
+                <ChevronRight size={20} className="text-gray-400" />
+              </button>
+            </div>
+          </div>
+
+          {/* Bottom Padding */}
+          <div className="h-6" />
         </div>
       </div>
     );
