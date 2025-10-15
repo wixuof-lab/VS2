@@ -114,8 +114,9 @@ const Discover = ({ onNavigateToHashtag, onNavigateToVideo }) => {
             <h2 className="text-lg font-bold mb-4">Videos en tendencia</h2>
             <div className="grid grid-cols-3 gap-1">
               {mockVideos.slice(0, 9).map((video) => (
-                <div
+                <button
                   key={video.id}
+                  onClick={() => onNavigateToVideo && onNavigateToVideo(video.id)}
                   className="relative aspect-[9/16] bg-gray-800 rounded-sm overflow-hidden"
                 >
                   <img
@@ -129,7 +130,7 @@ const Discover = ({ onNavigateToHashtag, onNavigateToVideo }) => {
                     </svg>
                     <span className="text-white text-xs font-semibold">{video.likes}</span>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
