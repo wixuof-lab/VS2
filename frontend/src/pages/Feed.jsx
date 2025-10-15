@@ -130,21 +130,27 @@ const Feed = ({ onNavigateToSound, onNavigateToHashtag, onNavigateToProfile }) =
             {/* Right Action Buttons */}
             <div className="absolute right-2 bottom-20 flex flex-col items-center gap-6 z-10">
               {/* Profile */}
-              <div className="relative">
+              <button 
+                className="relative"
+                onClick={() => onNavigateToProfile && onNavigateToProfile(video.userId)}
+              >
                 <img
                   src={video.avatar}
                   alt={video.username}
                   className="w-12 h-12 rounded-full border-2 border-white"
                 />
                 {!video.isFollowing && (
-                  <button
-                    onClick={() => toggleFollow(video.id)}
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFollow(video.id);
+                    }}
                     className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-6 bg-[#FE2C55] rounded-full flex items-center justify-center"
                   >
                     <UserPlus size={14} className="text-white" />
-                  </button>
+                  </div>
                 )}
-              </div>
+              </button>
 
               {/* Like */}
               <button
@@ -159,19 +165,31 @@ const Feed = ({ onNavigateToSound, onNavigateToHashtag, onNavigateToProfile }) =
               </button>
 
               {/* Comment */}
-              <button className="flex flex-col items-center gap-1">
+              <button 
+                onClick={() => openComments(video.id)}
+                className="flex flex-col items-center gap-1"
+              >
                 <MessageCircle size={32} className="text-white" />
                 <span className="text-white text-xs font-semibold">{video.comments}</span>
               </button>
 
               {/* Bookmark */}
-              <button className="flex flex-col items-center gap-1">
-                <Bookmark size={32} className="text-white" />
+              <button 
+                onClick={() => toggleBookmark(video.id)}
+                className="flex flex-col items-center gap-1"
+              >
+                <Bookmark 
+                  size={32} 
+                  className={`${video.isBookmarked ? 'fill-white text-white' : 'text-white'} transition-all`}
+                />
                 <span className="text-white text-xs font-semibold">{video.shares}</span>
               </button>
 
               {/* Share */}
-              <button className="flex flex-col items-center gap-1">
+              <button 
+                onClick={() => openShare(video.id)}
+                className="flex flex-col items-center gap-1"
+              >
                 <Share2 size={32} className="text-white" />
               </button>
 
@@ -181,7 +199,10 @@ const Feed = ({ onNavigateToSound, onNavigateToHashtag, onNavigateToProfile }) =
               </button>
 
               {/* Sound Icon (Spinning) */}
-              <div className="relative w-10 h-10 mt-2">
+              <button
+                onClick={() => onNavigateToSound && onNavigateToSound(video.soundId)}
+                className="relative w-10 h-10 mt-2"
+              >
                 <div className="w-full h-full rounded-full bg-gray-800 border-2 border-white overflow-hidden animate-spin-slow">
                   <img
                     src={video.avatar}
@@ -189,7 +210,7 @@ const Feed = ({ onNavigateToSound, onNavigateToHashtag, onNavigateToProfile }) =
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </div>
+              </button>
             </div>
 
             {/* Bottom Info */}
