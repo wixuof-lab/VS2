@@ -94,7 +94,7 @@ export const mockVideos = [
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop',
     verified: true,
     description: 'new dance!! who wants a tutorial? 💃 #dance #tutorial #fyp',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    videoUrl: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
     thumbnailUrl: 'https://images.unsplash.com/photo-1547153760-18fc9498041c?w=400&h=700&fit=crop',
     soundId: 's1',
     soundName: 'original sound - charlidamelio',
