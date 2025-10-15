@@ -36,67 +36,30 @@ const Create = ({ onClose }) => {
     return (
       <div className="fixed inset-0 bg-black z-50 flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
-          <button onClick={onClose}>
-            <X size={24} className="text-white" />
+        <div className="flex items-center justify-between px-4 py-3">
+          <button onClick={onClose} className="text-white">
+            <X size={28} />
           </button>
-          <h1 className="text-white font-semibold text-lg">Crear video</h1>
-          <div className="w-6" />
+          <h1 className="text-white font-semibold text-lg">Crear</h1>
+          <div className="w-7" />
         </div>
 
-        {/* Camera View */}
-        <div className="flex-1 relative bg-gray-900">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gray-800 flex items-center justify-center">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                  <rect x="8" y="12" width="32" height="24" rx="2" stroke="white" strokeWidth="2"/>
-                  <path d="M40 18L44 15V33L40 30V18Z" fill="white"/>
-                </svg>
-              </div>
-              <p className="text-gray-400 text-sm">Cámara no disponible en demo</p>
-              <p className="text-gray-500 text-xs mt-1">Usa el botón de subir para seleccionar un video</p>
-            </div>
-          </div>
-
-          {/* Recording Timer */}
-          {isRecording && (
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-red-500 rounded-full">
-              <span className="text-white font-semibold">{recordingTime}s</span>
-            </div>
-          )}
-
-          {/* Grid Lines */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="h-full w-px bg-white/10 absolute left-1/3" />
-            <div className="h-full w-px bg-white/10 absolute right-1/3" />
-            <div className="w-full h-px bg-white/10 absolute top-1/3" />
-            <div className="w-full h-px bg-white/10 absolute bottom-1/3" />
-          </div>
-        </div>
-
-        {/* Controls */}
-        <div className="px-4 py-6 bg-black border-t border-gray-800">
-          <div className="flex items-center justify-around mb-6">
-            {/* Effects */}
-            <button className="flex flex-col items-center gap-2">
-              <div className="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center">
-                <Wand2 size={24} className="text-white" />
-              </div>
-              <span className="text-white text-xs">Efectos</span>
-            </button>
-
-            {/* Record/Upload Button */}
+        {/* Upload Options */}
+        <div className="flex-1 flex flex-col items-center justify-center px-6">
+          <div className="w-full max-w-md space-y-4">
+            {/* Upload from Device */}
             <button
-              className="relative"
               onClick={() => fileInputRef.current?.click()}
+              className="w-full bg-[#FE2C55] hover:bg-[#fe2c55ea] transition-colors rounded-xl p-6 flex items-center gap-4"
             >
-              <div className="w-20 h-20 rounded-full border-4 border-[#FE2C55] flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-[#FE2C55]" />
+              <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center">
+                <Upload size={28} className="text-white" />
               </div>
-              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-3 py-1 bg-gray-800 rounded-full">
-                <span className="text-white text-xs">Subir</span>
+              <div className="flex-1 text-left">
+                <h3 className="text-white font-semibold text-lg">Subir video</h3>
+                <p className="text-white/80 text-sm">Desde tu galería</p>
               </div>
+              <ChevronRight size={24} className="text-white" />
             </button>
             <input
               ref={fileInputRef}
@@ -106,32 +69,52 @@ const Create = ({ onClose }) => {
               className="hidden"
             />
 
-            {/* Flip */}
-            <button className="flex flex-col items-center gap-2">
-              <div className="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12H20M20 12L16 8M20 12L16 16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+            {/* Templates */}
+            <button className="w-full bg-[#1a1a1a] hover:bg-[#252525] transition-colors rounded-xl p-6 flex items-center gap-4">
+              <div className="w-14 h-14 bg-[#FE2C55]/20 rounded-full flex items-center justify-center">
+                <Sparkles size={28} className="text-[#FE2C55]" />
               </div>
-              <span className="text-white text-xs">Voltear</span>
+              <div className="flex-1 text-left">
+                <h3 className="text-white font-semibold text-lg">Usar plantilla</h3>
+                <p className="text-gray-400 text-sm">Crea con estilos prehechos</p>
+              </div>
+              <ChevronRight size={24} className="text-gray-400" />
+            </button>
+
+            {/* Camera (Disabled in Demo) */}
+            <button 
+              disabled
+              className="w-full bg-[#1a1a1a] opacity-50 rounded-xl p-6 flex items-center gap-4"
+            >
+              <div className="w-14 h-14 bg-gray-700 rounded-full flex items-center justify-center">
+                <Camera size={28} className="text-gray-500" />
+              </div>
+              <div className="flex-1 text-left">
+                <h3 className="text-gray-500 font-semibold text-lg">Grabar video</h3>
+                <p className="text-gray-600 text-sm">No disponible en demo</p>
+              </div>
             </button>
           </div>
 
-          {/* Speed/Timer Options */}
-          <div className="flex items-center justify-center gap-6">
-            <button className="flex items-center gap-1 text-white text-sm">
-              <Volume2 size={16} />
-              <span>15s</span>
-            </button>
-            <button className="flex items-center gap-1 text-white text-sm">
-              <span>Velocidad</span>
-            </button>
-            <button className="flex items-center gap-1 text-white text-sm">
-              <span>Belleza</span>
-            </button>
-            <button className="flex items-center gap-1 text-white text-sm">
-              <span>Filtros</span>
-            </button>
+          {/* Info Text */}
+          <div className="mt-8 text-center">
+            <p className="text-gray-400 text-sm">Videos hasta 10 minutos</p>
+            <p className="text-gray-500 text-xs mt-1">Formato recomendado: 1080x1920 (9:16)</p>
+          </div>
+        </div>
+
+        {/* Bottom Tips */}
+        <div className="px-6 pb-6">
+          <div className="bg-[#1a1a1a] rounded-lg p-4">
+            <div className="flex items-start gap-3">
+              <Sparkles size={20} className="text-[#FE2C55] mt-0.5" />
+              <div>
+                <h4 className="text-white font-medium text-sm mb-1">Consejos para crear</h4>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  Usa hashtags relevantes, agrega música popular y etiqueta tu ubicación para mayor alcance
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
