@@ -53,6 +53,25 @@ const Feed = ({ onNavigateToSound, onNavigateToHashtag, onNavigateToProfile }) =
     ));
   };
 
+  const toggleBookmark = (videoId) => {
+    setVideos(videos.map(v => 
+      v.id === videoId ? { ...v, isBookmarked: !v.isBookmarked } : v
+    ));
+  };
+
+  const openComments = (videoId) => {
+    setSelectedVideoId(videoId);
+    setShowComments(true);
+  };
+
+  const openShare = (videoId) => {
+    setSelectedVideoId(videoId);
+    setShowShare(true);
+  };
+
+  const currentVideo = videos[currentVideoIndex];
+  const selectedVideo = videos.find(v => v.id === selectedVideoId);
+
   return (
     <div className="relative h-screen w-full bg-black overflow-hidden">
       {/* Top Navigation */}
