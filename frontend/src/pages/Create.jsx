@@ -125,47 +125,92 @@ const Create = ({ onClose }) => {
     return (
       <div className="fixed inset-0 bg-black z-50 flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
-          <button onClick={() => setStep('select')}>
-            <ArrowLeft size={24} className="text-white" />
+        <div className="flex items-center justify-between px-4 py-3">
+          <button onClick={() => setStep('select')} className="text-white">
+            <ArrowLeft size={24} />
           </button>
-          <h1 className="text-white font-semibold text-lg">Editar</h1>
-          <button onClick={() => setStep('publish')} className="text-[#FE2C55] font-semibold">
+          <h1 className="text-white font-semibold text-lg">Editar video</h1>
+          <button 
+            onClick={() => setStep('publish')} 
+            className="bg-[#FE2C55] hover:bg-[#fe2c55ea] text-white px-5 py-1.5 rounded-full font-semibold text-sm"
+          >
             Siguiente
           </button>
         </div>
 
         {/* Video Preview */}
-        <div className="flex-1 relative bg-gray-900 flex items-center justify-center">
+        <div className="flex-1 relative bg-black flex items-center justify-center">
           {selectedVideo && (
             <video
               src={selectedVideo}
-              className="max-h-full max-w-full"
+              className="h-full w-auto max-w-full"
               controls
               autoPlay
               loop
+              muted
             />
           )}
+          
+          {/* Overlay Controls */}
+          <div className="absolute top-4 right-4 flex flex-col gap-2">
+            <button className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white">
+              <RotateCcw size={20} />
+            </button>
+          </div>
         </div>
 
         {/* Edit Tools */}
-        <div className="px-4 py-4 bg-black border-t border-gray-800">
-          <div className="flex items-center justify-around">
-            <button className="flex flex-col items-center gap-1">
-              <Music size={24} className="text-white" />
-              <span className="text-white text-xs">Sonidos</span>
+        <div className="bg-[#0a0a0a] border-t border-gray-800">
+          {/* Primary Tools */}
+          <div className="px-4 py-4 flex items-center justify-between">
+            <button className="flex flex-col items-center gap-1.5 min-w-[60px]">
+              <div className="w-11 h-11 bg-[#1a1a1a] rounded-xl flex items-center justify-center">
+                <Music size={22} className="text-white" />
+              </div>
+              <span className="text-white text-xs font-medium">Sonidos</span>
             </button>
-            <button className="flex flex-col items-center gap-1">
-              <Wand2 size={24} className="text-white" />
-              <span className="text-white text-xs">Efectos</span>
+            <button className="flex flex-col items-center gap-1.5 min-w-[60px]">
+              <div className="w-11 h-11 bg-[#1a1a1a] rounded-xl flex items-center justify-center">
+                <Wand2 size={22} className="text-white" />
+              </div>
+              <span className="text-white text-xs font-medium">Efectos</span>
             </button>
-            <button className="flex flex-col items-center gap-1">
-              <Type size={24} className="text-white" />
-              <span className="text-white text-xs">Texto</span>
+            <button className="flex flex-col items-center gap-1.5 min-w-[60px]">
+              <div className="w-11 h-11 bg-[#1a1a1a] rounded-xl flex items-center justify-center">
+                <Type size={22} className="text-white" />
+              </div>
+              <span className="text-white text-xs font-medium">Texto</span>
             </button>
-            <button className="flex flex-col items-center gap-1">
-              <Scissors size={24} className="text-white" />
-              <span className="text-white text-xs">Cortar</span>
+            <button className="flex flex-col items-center gap-1.5 min-w-[60px]">
+              <div className="w-11 h-11 bg-[#1a1a1a] rounded-xl flex items-center justify-center">
+                <ImageIcon size={22} className="text-white" />
+              </div>
+              <span className="text-white text-xs font-medium">Stickers</span>
+            </button>
+            <button className="flex flex-col items-center gap-1.5 min-w-[60px]">
+              <div className="w-11 h-11 bg-[#1a1a1a] rounded-xl flex items-center justify-center">
+                <Scissors size={22} className="text-white" />
+              </div>
+              <span className="text-white text-xs font-medium">Recortar</span>
+            </button>
+          </div>
+
+          {/* Secondary Tools */}
+          <div className="px-4 pb-4 pt-2 flex items-center gap-2 overflow-x-auto scrollbar-hide">
+            <button className="px-4 py-2 bg-[#1a1a1a] rounded-full text-white text-sm font-medium whitespace-nowrap flex items-center gap-2">
+              <Filter size={16} />
+              Filtros
+            </button>
+            <button className="px-4 py-2 bg-[#1a1a1a] rounded-full text-white text-sm font-medium whitespace-nowrap flex items-center gap-2">
+              <Smile size={16} />
+              Belleza
+            </button>
+            <button className="px-4 py-2 bg-[#1a1a1a] rounded-full text-white text-sm font-medium whitespace-nowrap flex items-center gap-2">
+              <Volume2 size={16} />
+              Voz en off
+            </button>
+            <button className="px-4 py-2 bg-[#1a1a1a] rounded-full text-white text-sm font-medium whitespace-nowrap">
+              Auto captions
             </button>
           </div>
         </div>
