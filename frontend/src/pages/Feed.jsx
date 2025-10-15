@@ -215,7 +215,10 @@ const Feed = ({ onNavigateToSound, onNavigateToHashtag, onNavigateToProfile }) =
 
             {/* Bottom Info */}
             <div className="absolute bottom-20 left-2 right-20 z-10 px-3">
-              <div className="flex items-center gap-2 mb-3">
+              <button
+                onClick={() => onNavigateToProfile && onNavigateToProfile(video.userId)}
+                className="flex items-center gap-2 mb-3"
+              >
                 <span className="text-white font-semibold text-base">@{video.username}</span>
                 {video.verified && (
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -223,16 +226,50 @@ const Feed = ({ onNavigateToSound, onNavigateToHashtag, onNavigateToProfile }) =
                     <path d="M6.5 8.5L7.5 9.5L9.5 6.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 )}
-              </div>
-              <p className="text-white text-sm mb-2 line-clamp-2">{video.description}</p>
-              <div className="flex items-center gap-2">
+              </button>
+              <p className="text-white text-sm mb-2 line-clamp-2">
+                {video.description.split(/(#\w+)/g).map((part, i) => 
+                  part.startsWith('#') ? (
+                    <button
+                      key={i}
+                      onClick={() => onNavigateToHashtag && onNavigateToHashtag(part)}
+                      className="text-white font-semibold hover:underline"
+                    >
+                      {part}
+                    </button>
+                  ) : (
+                    <span key={i}>{part}</span>
+                  )
+                )}
+              </p>
+              <button
+                onClick={() => onNavigateToSound && onNavigateToSound(video.soundId)}
+                className="flex items-center gap-2"
+              >
                 <Music size={14} className="text-white" />
                 <span className="text-white text-xs truncate">{video.soundName}</span>
-              </div>
+              </button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Comments Sheet */}
+      {showComments && selectedVideo && (
+        <CommentsSheet
+          videoId={selectedVideoId}
+          commentsCount={selectedVideo.comments}
+          onClose={() => setShowComments(false)}
+        />
+      )}
+
+      {/* Share Sheet */}
+      {showShare && selectedVideo && (
+        <ShareSheet
+          video={selectedVideo}
+          onClose={() => setShowShare(false)}
+        />
+      )}
     </div>
   );
 };
