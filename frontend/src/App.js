@@ -1,52 +1,47 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from 'react';
+import './App.css';
+import Feed from './pages/Feed';
+import Discover from './pages/Discover';
+import Create from './pages/Create';
+import Inbox from './pages/Inbox';
+import Profile from './pages/Profile';
+import BottomNav from './components/BottomNav';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+function App() {
+  const [activeTab, setActiveTab] = useState('home');
+  const [showCreate, setShowCreate] = useState(false);
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'home':
+        return <Feed />;
+      case 'discover':
+        return <Discover />;
+      case 'inbox':
+        return <Inbox />;
+      case 'profile':
+        return <Profile />;
+      default:
+        return <Feed />;
     }
   };
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+    <div className="App relative">
+      {/* Main Content */}
+      <div className="pb-16">
+        {renderContent()}
+      </div>
 
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      {/* Bottom Navigation */}
+      <BottomNav
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onCreateClick={() => setShowCreate(true)}
+      />
+
+      {/* Create Modal */}
+      {showCreate && <Create onClose={() => setShowCreate(false)} />}
     </div>
   );
 }
