@@ -114,7 +114,7 @@ export const mockVideos = [
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
     verified: true,
     description: 'Life is simple 🤷🏾‍♂️ #comedy #funny #lifehacks',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    videoUrl: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
     thumbnailUrl: 'https://images.unsplash.com/photo-1533636721434-0e2d61030955?w=400&h=700&fit=crop',
     soundId: 's2',
     soundName: 'Monkeys Spinning Monkeys - Kevin MacLeod',
