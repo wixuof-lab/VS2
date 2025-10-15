@@ -1,11 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Heart, MessageCircle, Share2, Bookmark, Music, MoreHorizontal, UserPlus } from 'lucide-react';
 import { mockVideos } from '../data/mockData';
+import CommentsSheet from '../components/CommentsSheet';
+import ShareSheet from '../components/ShareSheet';
 
-const Feed = () => {
+const Feed = ({ onNavigateToSound, onNavigateToHashtag, onNavigateToProfile }) => {
   const [videos, setVideos] = useState(mockVideos);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [activeTab, setActiveTab] = useState('foryou'); // 'foryou' or 'following'
+  const [showComments, setShowComments] = useState(false);
+  const [showShare, setShowShare] = useState(false);
+  const [selectedVideoId, setSelectedVideoId] = useState(null);
   const videoRefs = useRef([]);
   const containerRef = useRef(null);
 
