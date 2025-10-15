@@ -174,7 +174,7 @@ export const mockVideos = [
     avatar: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=200&fit=crop',
     verified: true,
     description: 'obsessed with this song 💙 #music #dance #vibes',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+    videoUrl: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
     thumbnailUrl: 'https://images.unsplash.com/photo-1496024840928-4c417adf211d?w=400&h=700&fit=crop',
     soundId: 's3',
     soundName: 'Sí Señorita - Yolanda Be Cool',
