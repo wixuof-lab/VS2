@@ -3,7 +3,9 @@ import { ChevronLeft, TrendingUp } from 'lucide-react';
 import { mockHashtags, mockVideos } from '../data/mockData';
 
 const HashtagPage = ({ hashtagId, onBack, onVideoClick }) => {
-  const hashtag = mockHashtags.find(h => h.id === hashtagId) || mockHashtags[0];
+  // Find hashtag by id or by name
+  const hashtag = mockHashtags.find(h => h.id === hashtagId || h.name === hashtagId) || 
+                  { id: 'custom', name: hashtagId || '#fyp', views: '2.5T', isFollowing: false };
   const [isFollowing, setIsFollowing] = useState(hashtag.isFollowing);
   const hashtagVideos = mockVideos.slice(0, 15); // Mock: show all videos
 
