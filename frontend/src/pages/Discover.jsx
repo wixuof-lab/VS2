@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Search, TrendingUp, Hash, Music as MusicIcon } from 'lucide-react';
 import { mockHashtags, mockVideos } from '../data/mockData';
 
-const Discover = () => {
+const Discover = ({ onNavigateToHashtag, onNavigateToVideo }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all'); // all, users, videos, sounds, hashtags
 
