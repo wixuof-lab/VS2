@@ -1,11 +1,25 @@
 import React, { useState, useRef } from 'react';
-import { X, Music, Wand2, Type, Scissors, Volume2, ArrowLeft, Check } from 'lucide-react';
+import { 
+  X, Music, Wand2, Type, Scissors, Volume2, ArrowLeft, Check, 
+  MapPin, Hash, AtSign, Users, Upload, Camera, Image as ImageIcon,
+  Sparkles, Filter, Smile, Globe, Lock, UserCheck, MessageSquare,
+  Copy, GitMerge, ChevronRight, Video, RotateCcw
+} from 'lucide-react';
 
 const Create = ({ onClose }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedVideoFile, setSelectedVideoFile] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [step, setStep] = useState('select'); // select, edit, publish
+  const [description, setDescription] = useState('');
+  const [privacy, setPrivacy] = useState('public'); // public, friends, private
+  const [allowComments, setAllowComments] = useState(true);
+  const [allowDuet, setAllowDuet] = useState(true);
+  const [allowStitch, setAllowStitch] = useState(true);
+  const [selectedCover, setSelectedCover] = useState(0);
+  const [location, setLocation] = useState('');
+  const [showLocationInput, setShowLocationInput] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleFileSelect = (e) => {
@@ -13,6 +27,7 @@ const Create = ({ onClose }) => {
     if (file) {
       const videoUrl = URL.createObjectURL(file);
       setSelectedVideo(videoUrl);
+      setSelectedVideoFile(file);
       setStep('edit');
     }
   };
