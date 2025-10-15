@@ -82,15 +82,20 @@ const Discover = ({ onNavigateToHashtag, onNavigateToVideo }) => {
             </div>
             <div className="space-y-3">
               {mockHashtags.map((hashtag) => (
-                <div
+                <button
                   key={hashtag.id}
-                  className="flex items-center justify-between p-3 bg-[#1a1a1a] rounded-lg"
+                  onClick={() => onNavigateToHashtag && onNavigateToHashtag(hashtag.name)}
+                  className="w-full flex items-center justify-between p-3 bg-[#1a1a1a] rounded-lg hover:bg-[#2a2a2a] transition-colors"
                 >
-                  <div>
+                  <div className="text-left">
                     <p className="font-semibold text-base">{hashtag.name}</p>
                     <p className="text-sm text-gray-400">{hashtag.views} vistas</p>
                   </div>
                   <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // Toggle follow
+                    }}
                     className={`px-6 py-1.5 rounded-md text-sm font-semibold transition-all ${
                       hashtag.isFollowing
                         ? 'bg-[#1a1a1a] border border-gray-600 text-white'
@@ -99,7 +104,7 @@ const Discover = ({ onNavigateToHashtag, onNavigateToVideo }) => {
                   >
                     {hashtag.isFollowing ? 'Siguiendo' : 'Seguir'}
                   </button>
-                </div>
+                </button>
               ))}
             </div>
           </div>
