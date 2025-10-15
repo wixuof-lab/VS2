@@ -12,7 +12,13 @@ const Feed = () => {
   useEffect(() => {
     const currentVideo = videoRefs.current[currentVideoIndex];
     if (currentVideo) {
-      currentVideo.play();
+      currentVideo.play().catch(() => {
+        // Autoplay was prevented, mute and try again
+        currentVideo.muted = true;
+        currentVideo.play().catch(() => {
+          // Still failed, ignore
+        });
+      });
     }
   }, [currentVideoIndex]);
 
