@@ -97,7 +97,7 @@ const Feed = () => {
               className="h-full w-full object-cover"
               loop
               playsInline
-              muted={false}
+              muted
             />
 
             {/* Gradient Overlay */}
