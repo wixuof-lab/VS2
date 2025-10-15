@@ -49,7 +49,15 @@ function App() {
           />
         );
       case 'discover':
-        return <Discover />;
+        return (
+          <Discover 
+            onNavigateToHashtag={(hashtag) => navigateTo('hashtag', { hashtag })}
+            onNavigateToVideo={(videoId) => {
+              setActiveTab('home');
+              setCurrentPage({ type: 'home' });
+            }}
+          />
+        );
       case 'inbox':
         return <Inbox />;
       case 'profile':
